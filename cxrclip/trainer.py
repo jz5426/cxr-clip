@@ -44,6 +44,7 @@ def run(local_rank, cfg: Dict):
     if "data_test" in cfg:
         data_config["test"] = cfg["data_test"]
 
+    # NOTE: if it is resnet, then use the imagenet normalization, otherwise use the huggingface normalization.
     if cfg["model"]["image_encoder"]["name"] == "resnet":
         for _split in data_config:
             for _dataset in data_config[_split]:
