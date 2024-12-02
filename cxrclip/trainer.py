@@ -59,14 +59,16 @@ def run(local_rank, cfg: Dict):
     train_dataloader, train_sampler = datamodule.train_dataloader(distributed=distributed)
     valid_dataloaders = datamodule.valid_dataloader(distributed=distributed)
 
+    #NOTE: entry point to load the model
     log.info(f"{device}: Build the model")
     model = build_model(cfg["model"], cfg["loss"], datamodule.tokenizer)
-    model = model.to(device)
+    model = model.to(device)    
     if distributed:
         model = DDP(model, device_ids=[device], find_unused_parameters=True)
     if util.GlobalEnv.get().master:
         log.info(f"{device}: Model info:\n{model}")
 
+    #NOTE: this follows the CXRClip
     log.info(f"{device}: Build the loss function")
     loss_func = build_loss(cfg["loss"])
 
@@ -119,6 +121,7 @@ def run(local_rank, cfg: Dict):
     for epoch in range(epoch_resume, total_epochs):
         if train_sampler is not None:
             train_sampler.set_epoch(epoch)
+        #NOTE: main function to train the model
         train_loss_dict = train(
             model,
             device,

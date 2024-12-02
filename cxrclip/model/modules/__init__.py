@@ -14,7 +14,7 @@ def load_image_encoder(config_image_encoder: Dict):
             config_image_encoder["gradient_checkpointing"] if "gradient_checkpointing" in config_image_encoder else False
         )
         model_type = config_image_encoder["model_type"] if "model_type" in config_image_encoder else "vit"
-        _image_encoder = HuggingfaceImageEncoder(
+        _image_encoder = HuggingfaceImageEncoder( #NOTE: potentially for the swin vision transformer model
             name=config_image_encoder["name"],
             pretrained=config_image_encoder["pretrained"],
             gradient_checkpointing=gradient_checkpointing,

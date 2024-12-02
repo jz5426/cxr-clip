@@ -12,6 +12,7 @@ log = logging.getLogger(__name__)
 
 
 class CXRClip(nn.Module):
+    #NOTE: main CXR_CLIP model
     def __init__(self, model_config: Dict, all_loss_config: Dict, tokenizer: PreTrainedTokenizer = None):
         super().__init__()
         self.tokenizer = tokenizer

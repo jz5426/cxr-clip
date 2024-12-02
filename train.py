@@ -31,6 +31,7 @@ def main(cfg: DictConfig):
     torch.backends.cudnn.benchmark = True
 
     cfg = convert_dictconfig_to_dict(cfg)
+    #NOTE: main entry point to model training
     run(local_rank, cfg)
 
 

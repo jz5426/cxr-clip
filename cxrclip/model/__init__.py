@@ -8,9 +8,10 @@ from .image_classification import CXRClassification
 
 
 def build_model(model_config: Dict, loss_config: Dict, tokenizer: PreTrainedTokenizer = None) -> nn.Module:
-    if model_config["name"].lower() == "clip_custom":
+    if model_config["name"].lower() == "clip_custom": #NOTE: look for clip_custom to find the config file
         model = CXRClip(model_config, loss_config, tokenizer)
     elif model_config["name"].lower() == "finetune_classification":
+        #NOTE this one only train the linear classifier
         model_type = model_config["image_encoder"]["model_type"] if "model_type" in model_config["image_encoder"] else "vit"
         model = CXRClassification(model_config, model_type)
     else:

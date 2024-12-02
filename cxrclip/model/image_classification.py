@@ -20,6 +20,7 @@ class CXRClassification(nn.Module):
         if model_config["load_backbone_weights"] is None:
             self.image_encoder = load_image_encoder(model_config["image_encoder"])
         else:
+            #NOTE: sample code to load the backbone weights
             log.info("    loading pre-trained image encoder for fine-tuning")
             if not os.path.isfile(model_config["load_backbone_weights"]):
                 raise ValueError(f"Cannot find a weight file: {model_config['load_backbone_weights']}")
